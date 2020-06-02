@@ -1,0 +1,66 @@
+****Docker****
+
+run:
+	O método run sempre cria um novo container
+	O comando run é a concatenação de 4 comandos:
+	*docker image pull (serve para baixar a imagem do registry para sua máquina)
+	*docker container create (criação do container)
+	*docker container start (inicia o container)
+	*docker container exec (execução do container em modo interativo)
+
+docker modo interativo (utilizado mais para teste)
+
+comandos:
+
+ docker container ps (mostra todos os containers ativos)
+ docker container ps -a (mostra todos os containers independente do estado)
+ docker container run --rm debian (o --rm vai fazer com que seja removido o container da lista "ps")
+ docker container run -it "especificação do container" (O "i" se refere ao modo interativo e o "t" se refere ao terminal de dentro do container)
+ docker container run --name "nome" (cria um container com o nome especificado)
+ docker container start "nome do container que voce quer" (entre em um container específico)
+ docker container run -p 8080:80 nginx (o 8080 significa a porta que será acessada de fora e o 80 após os : a porta initerna)
+ docker container run -p 8080:80 -v $(pwd)/html:/usr/share/nginx/html nginx ("-v" é o volume, $(pwd) significa a pasta corrente [atual] e o endereço depois dos : é o endereço que irá receber as informações sendo substituido)
+ docker container stop "nome do container" (para a execução do container)
+ docker container restart "nome do container" (reinicia a container)
+ docker container logs "nome do container ou id" (acessa os logs do container)
+ docker container inspect "nome do container ou id" (inspeciona o container, irá retornar um json mostrando as configurações)
+ docker image build (pega um arquivo descritor do docker, interpreta e cria a imagem)
+ docker image build -t "nome da imagem" . (pega um arquivo descritor do docker, interpreta e cria a imagem com o nome que você escolheu na pasta que está)
+ docker network ls (listando os tipos de rede)
+ docker container exec -it "nome" ifconfig
+ docker container exec -it "nome" ping "nome"
+ docker network create --driver bridge "nome" (cria uma rede e do tipo da rede)
+ docker network connect bridge container3 (liberando acesso a rede "bridge" para o "container3")
+ docker network disconnect bridge container3 (bloqueia a conexão do "container3" para a rede "bridge")
+
+família de códigos:
+
+listar:
+ docker container ls
+ docker container ps
+ docker container list
+ docker ps
+ docker container ls -a
+ docker container list -a
+ docker container ps -a
+ docker ps -a
+
+ o mesmo server para docker image... e docker volume....
+
+apagar:
+ docker image rm
+ docker rmi "id" ou "name" (rmi apaga imagem)
+ docker container rm
+ docker rm "id" ou "name" (rm apaga container)
+
+help:
+ docker container --help
+ docker image --help
+ docker volume --help
+
+***Docker Hub x Docker Registry***
+
+  Docker Registry - É um serviço (serverside) para registro e obtenção de imagem. Ele é um serviço que disponibiliza API para que você consiga enviar e resgatar imagens.
+É possível criar um Registry privado para popular com suas próprias imagens em uma empresa
+
+  Docker Hub - É um SAS (software as a service). É um produto disponibilizado na nuvem pelo docker. Ele contem um registry dentro dele, interface gráfica entre outras coisas
